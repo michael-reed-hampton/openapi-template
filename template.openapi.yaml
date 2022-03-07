@@ -12,61 +12,57 @@ info:
 host: "localhost"
 basePath: "/v1"
 tags:
-- name: "mrhtemplate"
-  description: "A beginning for openapi documents"
-  externalDocs:
-    description: "Find out more"
-    url: "http://localhost:8080/findoutmore"
+  - name: "mrhtemplate"
+    description: "A beginning for openapi documents"
+    externalDocs:
+      description: "Find out more"
+      url: "http://localhost:8080/findoutmore"
 schemes:
-- "https"
-- "http"
+  - "https"
+  - "http"
 paths:
   /thing:
     post:
       tags:
-      - "thing"
+        - "thing"
       summary: "Add a thing to the storage"
       description: ""
       operationId: "addThing"
       consumes:
-      - "application/json"
-      - "application/xml"
+        - "application/json"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Pet object that needs to be added to the store"
-        required: true
-        schema:
-          $ref: "#/definitions/Thing"
+        - in: "body"
+          name: "body"
+          description: "Pet object that needs to be added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/Thing"
       responses:
         "405":
           description: "Invalid input"
       security:
-      - thingtemplate_auth:
-        - "write:things"
-        - "read:things"
+        - thingtemplate_auth:
+            - "write:things"
+            - "read:things"
     put:
       tags:
-      - "thing"
+        - "thing"
       summary: "Update an existing thing"
       description: ""
       operationId: "updateThing"
       consumes:
-      - "application/json"
-      - "application/xml"
+        - "application/json"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Thing object that needs to be added to the store"
-        required: true
-        schema:
-          $ref: "#/definitions/Thing"
+        - in: "body"
+          name: "body"
+          description: "Thing object that needs to be added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/Thing"
       responses:
         "400":
           description: "Invalid ID supplied"
@@ -75,33 +71,32 @@ paths:
         "405":
           description: "Validation exception"
       security:
-      - thingtemplate_auth:
-        - "write:things"
-        - "read:things"
+        - thingtemplate_auth:
+            - "write:things"
+            - "read:things"
   /thing/findByStatus:
     get:
       tags:
-      - "thing"
+        - "thing"
       summary: "Finds Things by status"
       description: "Multiple status values can be provided with comma separated strings"
       operationId: "findThingsByStatus"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "status"
-        in: "query"
-        description: "Status values that need to be considered for filter"
-        required: true
-        type: "array"
-        items:
-          type: "string"
-          enum:
-          - "available"
-          - "pending"
-          - "sold"
-          default: "available"
-        collectionFormat: "multi"
+        - name: "status"
+          in: "query"
+          description: "Status values that need to be considered for filter"
+          required: true
+          type: "array"
+          items:
+            type: "string"
+            enum:
+              - "available"
+              - "pending"
+              - "sold"
+            default: "available"
+          collectionFormat: "multi"
       responses:
         "200":
           description: "successful operation"
@@ -112,28 +107,27 @@ paths:
         "400":
           description: "Invalid status value"
       security:
-      - thingtemplate_auth:
-        - "write:things"
-        - "read:things"
+        - thingtemplate_auth:
+            - "write:things"
+            - "read:things"
   /thing/findByTags:
     get:
       tags:
-      - "thing"
+        - "thing"
       summary: "Finds Things by tags"
       description: "Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing."
       operationId: "findThingsByTags"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "tags"
-        in: "query"
-        description: "Tags to filter by"
-        required: true
-        type: "array"
-        items:
-          type: "string"
-        collectionFormat: "multi"
+        - name: "tags"
+          in: "query"
+          description: "Tags to filter by"
+          required: true
+          type: "array"
+          items:
+            type: "string"
+          collectionFormat: "multi"
       responses:
         "200":
           description: "successful operation"
@@ -144,27 +138,26 @@ paths:
         "400":
           description: "Invalid tag value"
       security:
-      - thingtemplate_auth:
-        - "write:things"
-        - "read:things"
+        - thingtemplate_auth:
+            - "write:things"
+            - "read:things"
       deprecated: true
   /thing/{thingId}:
     get:
       tags:
-      - "thing"
+        - "thing"
       summary: "Find thing by ID"
       description: "Returns a single thing"
       operationId: "getThingById"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "thingId"
-        in: "path"
-        description: "ID of thing to return"
-        required: true
-        type: "integer"
-        format: "int64"
+        - name: "thingId"
+          in: "path"
+          description: "ID of thing to return"
+          required: true
+          type: "integer"
+          format: "int64"
       responses:
         "200":
           description: "successful operation"
@@ -175,82 +168,81 @@ paths:
         "404":
           description: "Thing not found"
       security:
-      - api_key: []
+        - api_key: []
     delete:
       tags:
-      - "thing"
+        - "thing"
       summary: "Deletes a thing"
       description: ""
       operationId: "deleteThing"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "api_key"
-        in: "header"
-        required: false
-        type: "string"
-      - name: "thingId"
-        in: "path"
-        description: "Thing id to delete"
-        required: true
-        type: "integer"
-        format: "int64"
+        - name: "api_key"
+          in: "header"
+          required: false
+          type: "string"
+        - name: "thingId"
+          in: "path"
+          description: "Thing id to delete"
+          required: true
+          type: "integer"
+          format: "int64"
       responses:
         "400":
           description: "Invalid ID supplied"
         "404":
           description: "Thing not found"
       security:
-      - thingtemplate_auth:
-        - "write:things"
-        - "read:things"
+        - thingtemplate_auth:
+            - "write:things"
+            - "read:things"
   /thing/{thingId}/uploadImage:
     post:
       tags:
-      - "thing"
+        - "thing"
       summary: "uploads an image"
       description: ""
       operationId: "uploadFile"
       consumes:
-      - "multipart/form-data"
+        - "multipart/form-data"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "thingId"
-        in: "path"
-        description: "ID of thing to update"
-        required: true
-        type: "integer"
-        format: "int64"
-      - name: "additionalMetadata"
-        in: "formData"
-        description: "Additional data to pass to server"
-        required: false
-        type: "string"
-      - name: "file"
-        in: "formData"
-        description: "file to upload"
-        required: false
-        type: "file"
+        - name: "thingId"
+          in: "path"
+          description: "ID of thing to update"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: "additionalMetadata"
+          in: "formData"
+          description: "Additional data to pass to server"
+          required: false
+          type: "string"
+        - name: "file"
+          in: "formData"
+          description: "file to upload"
+          required: false
+          type: "file"
       responses:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/ApiResponse"
+            $ref: "#/definitions/ThingApiResponse"
       security:
-      - thingtemplate_auth:
-        - "write:things"
-        - "read:things"
+        - thingtemplate_auth:
+            - "write:things"
+            - "read:things"
   /store/inventory:
     get:
       tags:
-      - "thing"
+        - "thing"
       summary: "Returns thing inventories by status"
       description: "Returns a map of status codes to quantities"
       operationId: "getInventory"
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         "200":
@@ -261,92 +253,88 @@ paths:
               type: "integer"
               format: "int32"
       security:
-      - api_key: []
+        - api_key: []
   /user:
     post:
       tags:
-      - "user"
+        - "user"
       summary: "Create user"
       description: "This can only be done by the logged in user."
       operationId: "createUser"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Created user object"
-        required: true
-        schema:
-          $ref: "#/definitions/User"
+        - in: "body"
+          name: "body"
+          description: "Created user object"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
       responses:
         default:
           description: "successful operation"
   /user/createWithArray:
     post:
       tags:
-      - "user"
+        - "user"
       summary: "Creates list of users with given input array"
       description: ""
       operationId: "createUsersWithArrayInput"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "List of user object"
-        required: true
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/User"
+        - in: "body"
+          name: "body"
+          description: "List of user object"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
       responses:
         default:
           description: "successful operation"
   /user/createWithList:
     post:
       tags:
-      - "user"
+        - "user"
       summary: "Creates list of users with given input array"
       description: ""
       operationId: "createUsersWithListInput"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "List of user object"
-        required: true
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/User"
+        - in: "body"
+          name: "body"
+          description: "List of user object"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
       responses:
         default:
           description: "successful operation"
   /user/login:
     get:
       tags:
-      - "user"
+        - "user"
       summary: "Logs user into the system"
       description: ""
       operationId: "loginUser"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "username"
-        in: "query"
-        description: "The user name for login"
-        required: true
-        type: "string"
-      - name: "password"
-        in: "query"
-        description: "The password for login in clear text"
-        required: true
-        type: "string"
+        - name: "username"
+          in: "query"
+          description: "The user name for login"
+          required: true
+          type: "string"
+        - name: "password"
+          in: "query"
+          description: "The password for login in clear text"
+          required: true
+          type: "string"
       responses:
         "200":
           description: "successful operation"
@@ -366,13 +354,12 @@ paths:
   /user/logout:
     get:
       tags:
-      - "user"
+        - "user"
       summary: "Logs out current logged in user session"
       description: ""
       operationId: "logoutUser"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         default:
@@ -380,19 +367,18 @@ paths:
   /user/{username}:
     get:
       tags:
-      - "user"
+        - "user"
       summary: "Get user by user name"
       description: ""
       operationId: "getUserByName"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "username"
-        in: "path"
-        description: "The name that needs to be fetched. Use user1 for testing. "
-        required: true
-        type: "string"
+        - name: "username"
+          in: "path"
+          description: "The name that needs to be fetched. Use user1 for testing. "
+          required: true
+          type: "string"
       responses:
         "200":
           description: "successful operation"
@@ -404,25 +390,24 @@ paths:
           description: "User not found"
     put:
       tags:
-      - "user"
+        - "user"
       summary: "Updated user"
       description: "This can only be done by the logged in user."
       operationId: "updateUser"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "username"
-        in: "path"
-        description: "name that need to be updated"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "body"
-        description: "Updated user object"
-        required: true
-        schema:
-          $ref: "#/definitions/User"
+        - name: "username"
+          in: "path"
+          description: "name that need to be updated"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Updated user object"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
       responses:
         "400":
           description: "Invalid user supplied"
@@ -430,19 +415,18 @@ paths:
           description: "User not found"
     delete:
       tags:
-      - "user"
+        - "user"
       summary: "Delete user"
       description: "This can only be done by the logged in user."
       operationId: "deleteUser"
       produces:
-      - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "username"
-        in: "path"
-        description: "The name that needs to be deleted"
-        required: true
-        type: "string"
+        - name: "username"
+          in: "path"
+          description: "The name that needs to be deleted"
+          required: true
+          type: "string"
       responses:
         "400":
           description: "Invalid username supplied"
@@ -508,8 +492,8 @@ definitions:
   Thing:
     type: "object"
     required:
-    - "name"
-    - "photoUrls"
+      - "name"
+      - "photoUrls"
     properties:
       id:
         type: "integer"
@@ -537,12 +521,12 @@ definitions:
         type: "string"
         description: "thing status in the store"
         enum:
-        - "available"
-        - "pending"
-        - "sold"
+          - "available"
+          - "pending"
+          - "sold"
     xml:
       name: "Thing"
-  ApiResponse:
+  ThingApiResponse:
     type: "object"
     properties:
       code:
