@@ -35,7 +35,7 @@ paths:
       parameters:
         - in: "body"
           name: "body"
-          description: "Pet object that needs to be added to the store"
+          description: "Thing object that needs to be added to storage"
           required: true
           schema:
             $ref: "#/definitions/Thing"
@@ -59,7 +59,7 @@ paths:
       parameters:
         - in: "body"
           name: "body"
-          description: "Thing object that needs to be added to the store"
+          description: "Thing object that needs to be added to storage"
           required: true
           schema:
             $ref: "#/definitions/Thing"
@@ -234,7 +234,7 @@ paths:
         - thingtemplate_auth:
             - "write:things"
             - "read:things"
-  /store/inventory:
+  /thing/inventory:
     get:
       tags:
         - "thing"
@@ -519,7 +519,7 @@ definitions:
           $ref: "#/definitions/Tag"
       status:
         type: "string"
-        description: "thing status in the store"
+        description: "thing status in storage"
         enum:
           - "available"
           - "pending"
